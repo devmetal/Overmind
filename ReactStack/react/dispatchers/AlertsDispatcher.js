@@ -8,7 +8,7 @@ var AlertsDispatcher = assign({},BaseDispatcher.prototype,{
     handleAlertAction:function(action) {
         this.dispatch({
             source: 'ALERT_ACTION',
-            action:action
+            action: action
         });
     }
 });

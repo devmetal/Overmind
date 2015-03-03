@@ -98,21 +98,17 @@
         <Success>
           <h4>Success!</h4> Hello from react
         </Success>
-
-        <Warning>
-          <h4>Warning!</h4> Hello from React!
-        </Warning>
-
-        <Info closable>
-          <h4>Info!</h4> Hello from React!
-        </Info>
-
-        <Danger>
-          <h4>Error!</h4> Hello from React!
-        </Danger>
+        <Alerts></Alerts>
       </div>,
       document.getElementById('react-demo')
     );
+</script>
+
+<script>
+  AlertsActions.alert('Hello from flux!','alert-success');
+  AlertsActions.alert('Hello from flux!','alert-error');
+  AlertsActions.alert('Hello from flux!','alert-warning');
+  AlertsActions.alert('Hello from flux!','alert-info');
 </script>
 
 </body>

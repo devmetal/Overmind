@@ -66,6 +66,8 @@ var handleError = function(error) {
     return this.emit("end");
 };
 
+gulp.task('default',['server:start']);
+
 gulp.task('server:start',['bower:build','react:build'],function(){
     server.listen({path:'./example/stackdemo.js'});
     gulp.watch(['./react/**/*.js','index.js'],['react:build']);
@@ -108,7 +110,7 @@ gulp.task('react:build',function(){
         .on('error',handleError)
         .pipe(buffer())
         .on('error',handleError)
-        .pipe(uglify())
+        //.pipe(uglify())
         .on('error',handleError)
         .pipe(gulp.dest(distJs))
         .pipe(gulp.dest(exampleJs));

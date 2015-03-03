@@ -21,7 +21,7 @@ module.exports = Alert = React.createClass({
       }
 
       var dismiss;
-      if (this.props.closable) {
+      if (this.props.closeable) {
         dismiss = <Dissmiss />;
         classString += ' alert-dismissable ';
       }

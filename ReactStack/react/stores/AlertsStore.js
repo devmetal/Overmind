@@ -4,16 +4,18 @@
 var AlertsDispatcher = require('../dispatchers/AlertsDispatcher');
 var EventEmitter     = require('events').EventEmitter;
 var assign           = require('object-assign');
-var constants        = require('../Constants');
-var actions = constants.alerts.actions;
+var constants        = require('../constants/AlertsConstants');
 
 var alerts = {};
 
 var alertCount = 0;
 
-var createAlert = function(alert) {
+var createAlert = function(type,text) {
     var id = alertCount++;
-    alerts[id] = assign({},alert);
+    alerts[id] = {
+      'type':type,
+      'text':text
+    };
 };
 
 var removeAlert = function(id) {
@@ -22,24 +24,28 @@ var removeAlert = function(id) {
 
 var AlertsStore = assign({},EventEmitter.prototype,{
 
+    getAlerts:function() {
+      return alerts;
+    },
+
     emitChange:function() {
-        this.emit(constants.store.change);
+        this.emit(constants.STORE_CHANGE);
     },
 
     addChangeListener:function(cb){
-        this.on(constants.store.change,cb);
+        this.on(constants.STORE_CHANGE,cb);
     },
 
     dispatcher:AlertsDispatcher.register(function(payload){
 
         var action = payload.action;
 
-        switch (action.type) {
-            case actions.alert:
-                createAlert(action.alert);
+        switch (action.actionType) {
+            case constants.ALERT:
+                createAlert(action.type,action.text);
                 AlertsStore.emitChange();
                 break;
-            case actions.dismiss:
+            case constants.DISMISS:
                 var id = action.id;
                 removeAlert(id);
                 AlertsStore.emitChange();
